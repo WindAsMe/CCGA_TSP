@@ -18,9 +18,9 @@ if __name__ == "__main__":
     # print(tsp_files)
     scales = [963, 1389, 1488, 1083, 1436, 1583, 813, 1376, 483, 984]
     skip = 8
-    trial_runs = 1
-    NIND = 10
-    Max_iter = 5
+    trial_runs = 30
+    NIND = 100
+    Max_iter = 1000
     for run in range(trial_runs):
         # for i in range(len(tsp_files)):
         for inst in range(1):
@@ -44,18 +44,18 @@ if __name__ == "__main__":
 
             """Conventional GA and PSO"""
             # time_GA_start = time.time()
-            # best_Dis_GA, Route_GA, trace_GA = GA.GA_exe(cities, NIND, Max_iter)
-            # helps.write_result(GA_best_path, best_Dis_GA)
-            # helps.write_result(GA_route_path, Route_GA)
-            # helps.write_result(GA_trace_path, trace_GA)
+            best_Dis_GA, Route_GA, trace_GA = GA.GA_exe(cities, NIND, Max_iter)
+            helps.write_result(GA_best_path, best_Dis_GA)
+            helps.write_result(GA_route_path, Route_GA)
+            helps.write_result(GA_trace_path, trace_GA)
             # time_GA_end = time.time()
             # print("GA run time: ", time_GA_end - time_GA_start)
 
             # time_PSO_start = time.time()
-            # best_Dis_PSO, Route_PSO, trace_PSO = PSO.PSO_exe(cities, NIND, Max_iter)
-            # helps.write_result(PSO_best_path, best_Dis_PSO)
-            # helps.write_result(PSO_route_path, Route_PSO)
-            # helps.write_result(PSO_trace_path, trace_PSO)
+            best_Dis_PSO, Route_PSO, trace_PSO = PSO.PSO_exe(cities, NIND, Max_iter)
+            helps.write_result(PSO_best_path, best_Dis_PSO)
+            helps.write_result(PSO_route_path, Route_PSO)
+            helps.write_result(PSO_trace_path, trace_PSO)
             # time_PSO_end = time.time()
             # print("PSO run time: ", time_PSO_end - time_PSO_start)
 
