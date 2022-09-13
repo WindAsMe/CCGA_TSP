@@ -26,8 +26,8 @@ class PSO_TSP(SkoBase):
         self.Y = self.cal_y()
         self.pbest_x = self.X.copy()
         self.pbest_y = np.array([[np.inf]] * self.size_pop)
-
-        self.gbest_x = self.pbest_x[0, :]
+        if elite_x is not None:
+            self.gbest_x = self.pbest_x[0, :]
         self.gbest_y = np.inf
         self.gbest_y_hist = []
         self.update_gbest()

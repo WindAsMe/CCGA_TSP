@@ -1,6 +1,6 @@
 import numpy as np
 from scipy import spatial
-from sko.PSO import PSO_TSP
+from PSO_templet import PSO_TSP
 
 
 def decrease(trace):
@@ -31,7 +31,7 @@ def PSO_exe(places, NIND, Max_iter):
     global distance_matrix
     distance_matrix = spatial.distance.cdist(places, places, metric='euclidean')
     # 执行PSO算法
-    pso = PSO_TSP(func=evaluate, n_dim=num_points, size_pop=NIND, max_iter=Max_iter)
+    pso = PSO_TSP(func=evaluate, n_dim=num_points, elite_x=None, size_pop=NIND, max_iter=Max_iter)
 
     # 结果输出
     Route, best_Dis, trace = pso.run()
