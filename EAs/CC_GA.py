@@ -1,7 +1,7 @@
 import geatpy as ea
 from EAs import GA
 from EAs.Problem import MyProblem
-from EAs.GA_templet import soea_SEGA_templet
+from EAs.templet.GA_templet import soea_SEGA_templet
 import helps
 import numpy as np
 

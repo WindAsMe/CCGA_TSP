@@ -10,7 +10,7 @@ from sko.operators import mutation
 
 
 class PSO_TSP(SkoBase):
-    def __init__(self, func, n_dim, elite_x, size_pop=50, max_iter=200, w=0.8, c1=0.1, c2=0.1):
+    def __init__(self, func, n_dim, size_pop=50, max_iter=200, w=0.8, c1=0.1, c2=0.1):
         self.func = func_transformer(func)
         self.func_raw = func
         self.n_dim = n_dim
@@ -22,12 +22,9 @@ class PSO_TSP(SkoBase):
         self.cg = c2
 
         self.X = self.crt_X()
-        self.X[0] = elite_x
         self.Y = self.cal_y()
         self.pbest_x = self.X.copy()
         self.pbest_y = np.array([[np.inf]] * self.size_pop)
-        if elite_x is not None:
-            self.gbest_x = self.pbest_x[0, :]
         self.gbest_y = np.inf
         self.gbest_y_hist = []
         self.update_gbest()
@@ -129,7 +126,6 @@ class PSO_TSP(SkoBase):
             # self.cal_y()
             # self.update_pbest()
             # self.update_gbest()
-
 
             if self.verbose:
                 print('Iter: {}, Best fit: {} at {}'.format(iter_num, self.gbest_y, self.gbest_x))

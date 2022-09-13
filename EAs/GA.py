@@ -1,7 +1,7 @@
 import geatpy as ea
 from EAs.Problem import MyProblem
 import numpy as np
-from EAs.GA_templet import soea_SEGA_templet
+from EAs.templet.GA_templet import soea_SEGA_templet
 
 
 def GA_exe(places, NIND, Max_iter):
