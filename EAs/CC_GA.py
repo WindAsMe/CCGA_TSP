@@ -4,18 +4,38 @@ from EAs.Problem import MyProblem
 from EAs.templet.GA_templet import soea_SEGA_templet
 import helps
 import numpy as np
+from PtrNet.dataset import DataGenerator
+from PtrNet.actor import Actor
+import tensorflow as tf
 
 
-def CC_GA_exe(cities, NIND, Max_iter, name):
-    label = helps.K_Nearest(cities, 50)
+def CC_GA_exe(cities, NIND, Max_iter, config, actor, name):
+    label = helps.K_Nearest(cities, 20)
     # helps.draw_city_clustering(cities, label, name)
     sub_cities, sub_cities_num = helps.divide_cities(cities, label)
     Route = []
+
     for i in range(len(sub_cities)):
-        best_Dis, sub_route, trace = GA.GA_exe(sub_cities[i], NIND, int(0.2 * Max_iter))
+        if len(sub_cities[i]) == 20:
+            with tf.Session() as sess:
+                sess.run(tf.global_variables_initializer())
+                training_set = DataGenerator(config, sub_cities[i])
+
+                # Get test data
+                input_batch = training_set.test_batch()
+                feed = {actor.input_: input_batch}
+
+                # Sample solutions
+                positions, _, _, _ = sess.run([actor.positions, actor.reward, actor.train_step1, actor.train_step2],
+                                          feed_dict=feed)
+                sub_route = positions[0]
+        else:
+            best_Dis, sub_route, trace = GA.GA_exe(sub_cities[i], NIND, 10)
+        sub_route = list(sub_route)
+        sub_route.pop()
         route = helps.sub_num_real_num(sub_route, sub_cities_num[i])
-        route.pop()
         Route.extend(route)
+
     best_Dis, Route, trace = GA_elite_exe(cities, NIND, Max_iter, Route[1:])
     return best_Dis, Route, trace
 

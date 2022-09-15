@@ -96,5 +96,15 @@ def write_result(path, data):
         writer.writerow(data)
 
 
+def draw_tour(Route, name, dis=None):
+    Route = np.array(Route)
+    plt.plot(Route[:, 0], Route[:, 1], 'o--')
+    font_title = {'size': 18}
+    plt.title("Elite of" + name, font_title)
+    x_title = {'size': 14}
+    if dis is not None:
+        plt.xlabel("Distance =" + str(dis), x_title)
+    plt.legend()
+    plt.show()
 
 
